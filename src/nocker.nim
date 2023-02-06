@@ -1,4 +1,4 @@
-import os, logging, httpclient, utils, strformat, json
+import os, logging, httpclient, utils, strformat, strutils, json
 
 var logger = newConsoleLogger(fmtStr="[$time] - $levelname: ")
 
@@ -13,9 +13,14 @@ proc authenticate(image:string): string =
   let jsonResponse = parseJson(response)
   result = jsonResponse["token"].getStr()
 
+proc getImageManifestDigest(jwt: string, digest: string): string =
+  discard
+
 if paramCount() == 0:
   logger.log(lvlFatal, "No image name supplied")
   quit()
+
+let image, digest = split(paramStr(1), ':')
 
 
 
